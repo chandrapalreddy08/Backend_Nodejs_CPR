@@ -2,6 +2,7 @@
 const Firm = require('../models/Firm');
 const Vendor = require('../models/Vendor');
 const multer = require('multer');
+const path = require('path')
 
 
  
@@ -20,6 +21,10 @@ const addFirm = async(req,res)=>{
        return res.status(400).json({message:"vendor not found"})
     }
 
+     if(vendor.firm.length > 0){
+        return res.status(400).json({message:"vendor can have only one firm "})
+    }
+
     const firm = new Firm ({
         firmName,area,category,region,offer,image,vendor:vendor.id
     })
@@ -28,11 +33,15 @@ const addFirm = async(req,res)=>{
   
     const savedFirm = await firm.save();
 
+    const firmId = await savedFirm._id
+
     vendor.firm.push(savedFirm)
 
     await vendor.save()
 
-    return res.status(200).json({message:"firm added sucessfully"})
+   
+
+    return res.status(200).json({message:"firm added sucessfully",firmId} )
    } catch (error) {
      console.log(error);
     return res.status(500).json({

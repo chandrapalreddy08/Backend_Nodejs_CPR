@@ -2,6 +2,7 @@
 const Product = require('../models/Product');
 const multer = require('../middleware/multer');
 const Firm = require('../models/Firm')
+const path = require('path')
 
 const addProduct = async(req,res)=>{
     try {

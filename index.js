@@ -8,10 +8,17 @@ const firmRoutes = require('./routes/firmRoutes')
 const productRoutes = require('./routes/productRoutes')
 const path = require('path')
 dotenv.config()
+const cors = require('cors')
 const app = express()
+
+app.use(cors())
+
 
 const PORT = process.env.PORT || 4000;
 
+app.listen(PORT,()=>{
+    console.log(`server started and running at ${PORT}`);
+})
 
 mongoose.connect(process.env.MONGO_URL)
     .then(()=>console.log("Mongo db connected sucessfully"))
@@ -31,7 +38,5 @@ app.use('/',(req,res)=> {
 })
 
 
-app.listen(PORT,()=>{
-    console.log(`server started and running at ${PORT}`);
-})
+
 
