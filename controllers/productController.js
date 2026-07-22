@@ -40,13 +40,13 @@ const addProduct = async(req,res)=>{
 const getProductByFirm = async(req,res)=>{
     try {
         const firmId = req.params.firmId;
-        const firm = Firm.findById(firmId);
+        const firm = await Firm.findById(firmId);
 
         if(!firm){
             return res.status(404).json({error:"no firm found"})
         }
 
-        const restaurantName = firm.firmName
+        const restaurantName = await firm.firmName
         const products = await Product.find({firm:firmId})
 
         res.status(200).json({restaurantName,products})

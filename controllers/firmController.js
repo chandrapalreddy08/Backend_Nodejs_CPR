@@ -32,14 +32,18 @@ const addFirm = async(req,res)=>{
     
   
     const savedFirm = await firm.save();
+     console.log("Saved Firm:", savedFirm);
 
-    const firmId = await savedFirm._id
 
+    const firmId =savedFirm._id
+    console.log("Firm ID:", savedFirm._id);
+   
     vendor.firm.push(savedFirm)
 
     await vendor.save()
 
    
+
 
     return res.status(200).json({message:"firm added sucessfully",firmId} )
    } catch (error) {
